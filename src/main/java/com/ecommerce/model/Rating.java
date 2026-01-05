@@ -1,8 +1,7 @@
-package com.ecomerce.model;
+package com.ecommerce.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
