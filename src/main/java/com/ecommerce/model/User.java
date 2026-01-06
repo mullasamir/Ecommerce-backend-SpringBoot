@@ -1,12 +1,23 @@
 package com.ecommerce.model;
 
+import com.ecommerce.model.Review;
+import com.ecommerce.model.Rating;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
     @Id
@@ -37,11 +48,5 @@ public class User {
 
 
     private LocalDateTime createdAt;
-
-    public User(){
-
-    }
-
-
 
 }
