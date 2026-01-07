@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 @Entity
 @Getter
 @Setter
@@ -37,16 +36,14 @@ public class Product {
     @Column(name="discounted_present")
     private int discountPresent;
 
-    @Column(name="discounted_price")
-    private int quantity;
+    @Column(name="quantity")
+    private int quantity;   // <-- FIXED COLUMN NAME
 
-//    @Column(name="discounted_price")
     private String brand;
 
     @Column(name="color")
     private String color;
 
-    @Embedded
     @ElementCollection
     @Column(name="sizes")
     private Set<Size> sizes = new HashSet<>();
@@ -54,28 +51,19 @@ public class Product {
     @Column(name="image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "product" , cascade=CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product" , cascade=CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
     @Column(name="num_rating")
     private int numRating;
 
-    @ManyToOne()
+    @ManyToOne
     @JoinColumn(name="category_id")
     private Category category;
 
     private LocalDateTime createdAt;
-
-
-
-
-
-
-
-
-
-
 }
+
