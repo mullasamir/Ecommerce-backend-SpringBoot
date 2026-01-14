@@ -7,32 +7,34 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
-
+@Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-public class Rating {
+public class CartItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne
+    private Cart cart;
+
+    @ManyToOne
     private Product product;
 
-    @Column(name = "rating")
-    private double rating;
+    private String size;
 
-    private LocalDateTime createdAt;
+    private int quantity;
+
+    private Integer price;
+
+    private Integer discountPrice;
+
+    private Long userId;
+
 
 
 }

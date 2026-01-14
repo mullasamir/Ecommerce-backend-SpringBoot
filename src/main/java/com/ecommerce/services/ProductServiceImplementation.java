@@ -74,10 +74,21 @@ public class ProductServiceImplementation implements ProductService{
         product.setImageUrl(req.getImageUrl());
         product.setBrand(req.getBrand());
         product.setPrice(req.getPrice());
-        product.setSizes(req.getSize());
-        product.setQuantity(req.getQuantity());
+        product.setSizes(req.getSizes());
+//        product.setQuantity(req.getQuantity());
         product.setCategory(thirdLevel);
         product.setCreatedAt(LocalDateTime.now());
+
+        if (req.getSizes() != null && !req.getSizes().isEmpty()) {
+            int totalQuantity = req.getSizes().stream()
+                    .mapToInt(size -> size.getQuantity())
+                    .sum();
+            product.setQuantity(totalQuantity);
+        } else {
+            // If no sizes, use the quantity field with null check
+            Integer quantity = req.getQuantity();
+            product.setQuantity(quantity != null ? quantity : 0);
+        }
 
         Product savedProduct = productRepository.save(product);
         return savedProduct;
@@ -143,5 +154,10 @@ public class ProductServiceImplementation implements ProductService{
 
         Page<Product>filterProducts= new PageImpl<>(pageContent,pageable,products.size());
         return filterProducts;
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        return productRepository.findAll();
     }
 }

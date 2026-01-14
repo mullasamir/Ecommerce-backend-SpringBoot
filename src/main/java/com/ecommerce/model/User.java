@@ -1,7 +1,5 @@
 package com.ecommerce.model;
 
-import com.ecommerce.model.Review;
-import com.ecommerce.model.Rating;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

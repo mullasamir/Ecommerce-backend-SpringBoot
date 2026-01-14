@@ -1,0 +1,15 @@
+package com.ecommerce.services;
+
+import com.ecommerce.exceptions.ProductException;
+import com.ecommerce.model.Review;
+import com.ecommerce.model.User;
+import com.ecommerce.request.ReviewRequest;
+
+import java.util.List;
+
+public interface ReviewService {
+
+    public Review createReview(ReviewRequest req, User user) throws ProductException;
+
+    public List<Review>getAllReview(Long productId);
+}

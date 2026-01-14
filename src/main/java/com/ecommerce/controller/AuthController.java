@@ -3,10 +3,12 @@ package com.ecommerce.controller;
 
 import com.ecommerce.config.JwtProvider;
 import com.ecommerce.exceptions.UserException;
+import com.ecommerce.model.Cart;
 import com.ecommerce.model.User;
 import com.ecommerce.reponse.AuthResponse;
 import com.ecommerce.repository.UserRepository;
 import com.ecommerce.request.LoginRequest;
+import com.ecommerce.services.CartService;
 import com.ecommerce.services.CustomUserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +32,15 @@ public class AuthController {
     private JwtProvider jwtProvider;
     private PasswordEncoder passwordEncoder;
     private CustomUserServiceImpl customUserServiceImpl;
+    private CartService cartService;
 
     AuthController(UserRepository userRepository , JwtProvider jwtProvider , PasswordEncoder passwordEncoder ,
-                   CustomUserServiceImpl customUserServiceImpl){
+                   CustomUserServiceImpl customUserServiceImpl, CartService cartService){
         this.userRepository = userRepository;
         this.jwtProvider = jwtProvider;
         this.passwordEncoder = passwordEncoder;
         this.customUserServiceImpl = customUserServiceImpl;
+        this.cartService = cartService;
     }
 
     @PostMapping("/signup")
@@ -61,6 +65,8 @@ public class AuthController {
 
 
         User savedUser = userRepository.save(createdUser);
+
+        Cart cart = cartService.createCart(savedUser);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail() , savedUser.getPassword());
         SecurityContextHolder.getContext().setAuthentication(authentication);

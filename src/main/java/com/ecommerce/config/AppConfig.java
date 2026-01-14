@@ -36,8 +36,8 @@ public class AppConfig {
                                 .requestMatchers("/api/**").authenticated()
                                 .anyRequest().permitAll()
                 )
-                .httpBasic(basic -> basic.disable())   // ❌ kill default auth
-                .formLogin(form -> form.disable())     // ❌ kill login page
+                .httpBasic(basic -> basic.disable())
+                .formLogin(form -> form.disable())
                 .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class);
 
         return http.build();

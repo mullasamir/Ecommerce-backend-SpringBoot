@@ -9,30 +9,36 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Rating {
+public class OrderItem {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
-
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne
+    private Order order;
+
+    @ManyToOne
     private Product product;
 
-    @Column(name = "rating")
-    private double rating;
+    private String size;
 
-    private LocalDateTime createdAt;
+    private int quantity;
+
+    private Integer price;
+
+    private Integer discountedPrice;
+
+    private Long userId;
+
+    private LocalDateTime deliveryDate;
 
 
 }

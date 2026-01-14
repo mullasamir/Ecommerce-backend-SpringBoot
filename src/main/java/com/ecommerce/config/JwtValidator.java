@@ -68,7 +68,6 @@ public class JwtValidator extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
         } catch (Exception e) {
-            // ❌ Invalid or expired token → reject request
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }
